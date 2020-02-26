@@ -72,8 +72,13 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 # Use spanish layout : 
 `setxkbmap`
 
-
-
+# If in virtualbox : 
+1. Install virtualbox guest editions :
+`https://wiki.manjaro.org/index.php?title=VirtualBox#Running_Manjaro_under_VirtualBox`
+1. Mount shared folder :
+`sudo mount -t vboxsf wsvm ~/Desktop/wsvm/`
+_Folder needs to be configured to be existing in the host and
+the folder needs to exists both in host and guest_
 
 ```
  _                    _          
