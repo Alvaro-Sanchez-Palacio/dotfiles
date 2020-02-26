@@ -28,6 +28,12 @@ _Replace <package> by the name of the package, ex : `pacman -Qs snapd`_
 nvim .i3/config
 _Search @ASA_
 
+# Configure profile :
+1. Edit .profile
+1. Change editor :
+`export EDITOR=/usr/bin/nvim`
+1. Change the browser :
+`export BROWSER=/usr/bin/brave`
 
 # Configure urxvt :
 
