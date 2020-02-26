@@ -48,7 +48,15 @@ URxvt.font: 			          xft:FiraCode Nerd Font Mono:style=Bold:pixelsize=11
 xrdb ~/.Xresources
 ```
 1. Logout and login
-_In case of issues, reset the cache : ``_
+_In case of issues, reset the cache : `fc-cache -f -v`_
+
+# Configure .bashrc :
+## Alias :
+1. Add the aliases in the list :
+
+alias l='ls --color=auto'
+alias ll='ls -l --color=auto'
+alias la='ls -la --color=auto'
 
 ## Extensions :
 
