@@ -28,6 +28,12 @@ _Replace <package> by the name of the package, ex : `pacman -Qs snapd`_
 nvim .i3/config
 _Search @ASA_
 
+# Configure profile :
+1. Edit .profile
+1. Change editor :
+`export EDITOR=/usr/bin/nvim`
+1. Change the browser :
+`export BROWSER=/usr/bin/brave`
 
 # Configure urxvt :
 
@@ -42,7 +48,15 @@ URxvt.font: 			          xft:FiraCode Nerd Font Mono:style=Bold:pixelsize=11
 xrdb ~/.Xresources
 ```
 1. Logout and login
-_In case of issues, reset the cache : ``_
+_In case of issues, reset the cache : `fc-cache -f -v`_
+
+# Configure .bashrc :
+## Alias :
+1. Add the aliases in the list :
+
+alias l='ls --color=auto'
+alias ll='ls -l --color=auto'
+alias la='ls -la --color=auto'
 
 ## Extensions :
 
@@ -72,8 +86,13 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 # Use spanish layout : 
 `setxkbmap`
 
-
-
+# If in virtualbox : 
+1. Install virtualbox guest editions :
+`https://wiki.manjaro.org/index.php?title=VirtualBox#Running_Manjaro_under_VirtualBox`
+1. Mount shared folder :
+`sudo mount -t vboxsf wsvm ~/Desktop/wsvm/`
+_Folder needs to be configured to be existing in the host and
+the folder needs to exists both in host and guest_
 
 ```
  _                    _          
