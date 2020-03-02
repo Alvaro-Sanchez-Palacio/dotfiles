@@ -11,15 +11,8 @@
 " |-··> Start plugins declarations
 call plug#begin() 
 
-" |- deoplete " TODO : Fix issue with init autocompletion!
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#enable_ignore_case = 1
-" let g:deoplete#enable_smart_case = 1
-" " complete with words from any opened file
-" let g:context_filetype#same_filetypes = {}
-" let g:context_filetype#same_filetypes._ = '_'
-" set completeopt+=noinsert
+" |- Deoplete "
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " |- Surround
 Plug 'tpope/vim-surround'
@@ -41,6 +34,13 @@ Plug 'patstockwell/vim-monokai-tasty'
 " |- Glyphicons (NerdTree included)
 " |-··> Set as final vim-plug
 Plug 'ryanoasis/vim-devicons'
+
+" |- Git integration : TODO : Add ?
+" Plug 'tpope/vim-fugitive'
+
+" |- Code and files fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " |-··> End plugins declaration
 call plug#end()
@@ -94,6 +94,14 @@ map º <Esc>
 " |-··> Map options navigation
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+" complete with words from any opened file
+let g:context_filetype#same_filetypes = {}
+let g:context_filetype#same_filetypes._ = '_'
+set completeopt+=noinsert
 
 " |- NerdTree
 nmap <M-º> :NERDTreeToggle<CR>
@@ -220,7 +228,33 @@ imap <M-Left> <ESC>:tabp<CR>
 set scrolloff=3
 
 " |- Clear search results
-nnoremap <silent> // :noh<CR>
+" nnoremap <silent> // :noh<CR>
+nnoremap <space><space> :noh<CR>
 
 " |- Clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
+
+
+" |- Fzf
+
+" |-··> File finder mapping
+nmap ,e :Files<CR>
+" |-··> Tags (symbols) in current file finder mapping
+nmap ,g :BTag<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wg :execute ":BTag " . expand('<cword>')<CR>
+" |-··> Tags (symbols) in all files finder mapping
+nmap ,G :Tags<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wG :execute ":Tags " . expand('<cword>')<CR>
+" |-··> General code finder in current file mapping
+nmap ,f :BLines<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wf :execute ":BLines " . expand('<cword>')<CR>
+" |-··> General code finder in all files mapping
+nmap ,F :Lines<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
+" |-··> Commands finder mapping
+nmap ,c :Commands<CR>
+
