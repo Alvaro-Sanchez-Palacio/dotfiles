@@ -11,36 +11,49 @@
 " |-··> Start plugins declarations
 call plug#begin() 
 
-" |- Deoplete "
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " |- Deoplete
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" |- Surround
-Plug 'tpope/vim-surround'
+    " |- Jedi-VIM :
+    " Go-to-definition and similar features (autocompletion is disabled)
+    Plug 'davidhalter/jedi-vim'
 
-" |- EasyMotion " TODO : Add ?
+    " |- Surround
+    Plug 'tpope/vim-surround'
 
-" |- NerdTree
-Plug 'scrooloose/nerdTree'
+    " |- EasyMotion " TODO : Add ?
 
-" |- Ctrl-P " TODO : Learn
-Plug 'ctrlpvim/ctrlp.vim'
+    " |- NerdTree
+    Plug 'scrooloose/nerdTree'
 
-" |- Lightline
-Plug 'itchyny/lightline.vim'
+    " |- NerdCommenter
+    Plug 'scrooloose/nerdcommenter'
 
-" |- Color scheme
-Plug 'patstockwell/vim-monokai-tasty'
+    " |- Ctrl-P " TODO : Learn
+    Plug 'ctrlpvim/ctrlp.vim'
 
-" |- Glyphicons (NerdTree included)
-" |-··> Set as final vim-plug
-Plug 'ryanoasis/vim-devicons'
+    " |- Lightline
+    Plug 'itchyny/lightline.vim'
 
-" |- Git integration : TODO : Add ?
-" Plug 'tpope/vim-fugitive'
+    " |- Color scheme
+    Plug 'patstockwell/vim-monokai-tasty'
 
-" |- Code and files fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+    " |- Git integration : TODO : Add ?
+    Plug 'tpope/vim-fugitive'
+
+    " Git/mercurial/others diff icons on the side of the file lines
+    Plug 'mhinz/vim-signify'
+
+    " |- Code and files fuzzy finder
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
+    " |- Linters
+    Plug 'neomake/neomake'
+
+    " |- Glyphicons (NerdTree included)
+    " |-··> Set as final vim-plug
+    Plug 'ryanoasis/vim-devicons'
 
 " |-··> End plugins declaration
 call plug#end()
@@ -61,16 +74,21 @@ map l <Up>
 map ñ <Right>
 
 " |- Windows navigation 
-nnoremap <C-j> <C-W><Left>
-nnoremap <C-k> <C-W><Down>
-nnoremap <C-l> <C-W><Up>
-" TODO : Fix
-nnoremap <C-ñ> <C-W><Right> 
-
+" |··-> Home row
 nnoremap <leader>j <C-W><Left>
 nnoremap <leader>k <C-W><Down>
 nnoremap <leader>l <C-W><Up>
 nnoremap <leader>ñ <C-W><Right>
+" |··-> Arrow keys
+nnoremap <leader><Left>  <C-W><Left>
+nnoremap <leader><Down>  <C-W><Down>
+nnoremap <leader><Up>    <C-W><Up>
+nnoremap <leader><Right> <C-W><Right>
+" |··-> <C-W> combos
+nnoremap <C-W>j  <C-W><Left>
+nnoremap <C-W>k  <C-W><Down>
+nnoremap <C-W>l  <C-W><Up>
+nnoremap <C-W>ñ  <C-W><Right>
 
 " |- Paragraph navigation
 nnoremap <M-l> {
@@ -89,47 +107,6 @@ vnoremap <M-ñ> $
 " |- Special
 map <Space> <leader>
 map º <Esc>
-
-" |- Deoplete :
-" |-··> Map options navigation
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-" complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
-set completeopt+=noinsert
-
-" |- NerdTree
-nmap <M-º> :NERDTreeToggle<CR>
-
-" |-··> Ignore specific filetypes
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-
-" |-··> Enable folder icons
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-
-" |-··> Fix directory colors
-highlight! link NERDTreeFlags NERDTreeDir
-
-" |-··> Remove expandable arrow
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
-let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
-let NERDTreeDirArrowExpandable = "\u00a0"
-let NERDTreeDirArrowCollapsible = "\u00a0"
-let NERDTreeNodeDelimiter = "\x07"
-
-" |-··> Autorefresh on tree focus
-function! NERDTreeRefresh()
-    if &filetype == "nerdtree"
-        silent exe substitute(mapcheck("R"), "<CR>", "", "")
-    endif
-endfunction
-autocmd BufEnter * call NERDTreeRefresh()
 
 " |- CtrlP " TODO : Add
 
@@ -174,6 +151,9 @@ set noshowmode " Hide --INSERT-- from status line
 "   	|--··> git integration : ? @TODO : `:help 'statusline'`
 let g:lightline = {
       \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+      \ }
       \ }
 
 " |- Vim-Monokai-Tasty
@@ -196,19 +176,15 @@ if !isdirectory("/tmp/.vim-undo-dir")
     " rwx permission only to owner
     call mkdir("/tmp/.vim-undo-dir", "", 0700)
 endif
-
 " |-··> Configure tmp directory
 set undodir=/tmp/.vim-undo-dir
-
 " |-··> Configure tmp directory
 set undofile
-
 " |- Tabs and spaces handling
 set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-
 
 " |- Change separator character on vertical split
 set fillchars+=vert:\|
@@ -257,4 +233,83 @@ nmap ,F :Lines<CR>
 nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 " |-··> Commands finder mapping
 nmap ,c :Commands<CR>
+
+" |- NerdCommenter
+
+" |-··> Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" |-··> Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" |-··> Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" |-··> Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" |-··> Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" |-··> Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+" |- Neomake
+
+" |-··> Run linter on write
+autocmd! BufWritePost * Neomake
+" |-··> Check code as python3 by default
+let g:neomake_python_python_maker = neomake#makers#ft#python#python()
+let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
+let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
+let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
+" |-··> Disable error messages inside the buffer, next to the problematic line
+let g:neomake_virtualtext_current_error = 0
+
+" |- Deoplete :
+" |-··> Map options navigation
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+" |-··> Complete with words from any opened file
+let g:context_filetype#same_filetypes = {}
+let g:context_filetype#same_filetypes._ = '_'
+set completeopt+=noinsert
+
+" |- Jedi-VIM :
+" |-··> Disable autocompletion (using deoplete instead)
+let g:jedi#completions_enabled = 0
+
+" |-··> All these mappings work only for python code:
+"       |-··> Go to definition
+let g:jedi#goto_command = ',d'
+"       |-··> Find ocurrences
+let g:jedi#usages_command = ',o'
+"       |-··> Find assignments
+let g:jedi#goto_assignments_command = ',a'
+"       |-··> Go to definition in new tab
+nmap ,D :tab split<CR>:call jedi#goto()<CR>
+
+
+" |- NerdTree
+" |-··> Toggle NerdTree
+nmap <M-º> :NERDTreeToggle<CR>
+" |-··> Ignore specific filetypes
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+" |-··> Enable folder icons
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+" |-··> Fix directory colors
+highlight! link NERDTreeFlags NERDTreeDir
+" |-··> Remove expandable arrow
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+let NERDTreeDirArrowExpandable = "\u00a0"
+let NERDTreeDirArrowCollapsible = "\u00a0"
+let NERDTreeNodeDelimiter = "\x07"
+" |-··> Autorefresh on tree focus
+function! NERDTreeRefresh()
+    if &filetype == "nerdtree"
+        silent exe substitute(mapcheck("R"), "<CR>", "", "")
+    endif
+endfunction
+autocmd BufEnter * call NERDTreeRefresh()
 
