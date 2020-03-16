@@ -18,6 +18,9 @@ call plug#begin()
     " Go-to-definition and similar features (autocompletion is disabled)
     Plug 'davidhalter/jedi-vim'
 
+    " |- Ctrl-P " TODO : Learn
+    " Plug 'ctrlpvim/ctrlp.vim'
+
     " |- Surround
     Plug 'tpope/vim-surround'
 
@@ -28,9 +31,6 @@ call plug#begin()
 
     " |- NerdCommenter
     Plug 'scrooloose/nerdcommenter'
-
-    " |- Ctrl-P " TODO : Learn
-    Plug 'ctrlpvim/ctrlp.vim'
 
     " |- Lightline
     Plug 'itchyny/lightline.vim'
@@ -54,6 +54,12 @@ call plug#begin()
     " |- Glyphicons (NerdTree included)
     " |-··> Set as final vim-plug
     Plug 'ryanoasis/vim-devicons'
+
+    " |- Startify
+    Plug 'mhinz/vim-startify'
+
+    " |- Prettier : TODO : Add ?
+    " Plug 'mhinz/vim-startify'
 
 " |-··> End plugins declaration
 call plug#end()
@@ -80,6 +86,23 @@ nnoremap <leader>k <C-W><Down>
 nnoremap <leader>l <C-W><Up>
 nnoremap <leader>ñ <C-W><Right>
 " |··-> Arrow keys
+nnoremap <leader><Left> <C-W><Left>
+nnoremap <leader><Down> <C-W><Down>
+nnoremap <leader><Up> <C-W><Up>
+nnoremap <leader><Right> <C-W><Right>
+" |··-> <C-W> combos
+nnoremap <C-W>j <C-W><Left>
+nnoremap <C-W>k <C-W><Down>
+nnoremap <C-W>l <C-W><Up>
+nnoremap <C-W>ñ <C-W><Right>
+
+" |- Windows arrengement 
+" |··-> Home row
+nnoremap <leader>J <C-W>H
+nnoremap <leader>K <C-W>J
+nnoremap <leader>L <C-W>K
+nnoremap <leader>Ñ <C-W>L
+" |··-> Arrow keys
 nnoremap <leader><Left>  <C-W><Left>
 nnoremap <leader><Down>  <C-W><Down>
 nnoremap <leader><Up>    <C-W><Up>
@@ -104,11 +127,43 @@ nnoremap <M-ñ> $
 vnoremap <M-j> 0
 vnoremap <M-ñ> $
 
+" |- Tab navigation mappings
+map tt :tabnew 
+map <M-Right> :tabn<CR>
+imap <M-Right> <ESC>:tabn<CR>
+map <M-Left> :tabp<CR>
+imap <M-Left> <ESC>:tabp<CR>
+
 " |- Special
 map <Space> <leader>
 map º <Esc>
 
 " |- CtrlP " TODO : Add
+
+" |- Terminal (:ter) escape ter mode
+tnoremap <Esc> <C-\><C-n>
+
+" |- Fzf
+" |-··> File finder mapping
+nmap ,e :Files<CR>
+" |-··> Tags (symbols) in current file finder mapping
+nmap ,g :BTag<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wg :execute ":BTag " . expand('<cword>')<CR>
+" |-··> Tags (symbols) in all files finder mapping
+nmap ,G :Tags<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wG :execute ":Tags " . expand('<cword>')<CR>
+" |-··> General code finder in current file mapping
+nmap ,f :BLines<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wf :execute ":BLines " . expand('<cword>')<CR>
+" |-··> General code finder in all files mapping
+nmap ,F :Lines<CR>
+" |-··> The same, but with the word under the cursor pre filled
+nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
+" |-··> Commands finder mapping
+nmap ,c :Commands<CR>
 
 " ---------------------------------- "
 "   ____             __ _            "
@@ -163,7 +218,6 @@ colorscheme vim-monokai-tasty
 " |- *last-position-jump*
 " This autocommand jumps to the last known position in a file
 " just after opening it, if the '" mark is set:
-
 :au BufReadPost *
 \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
 \ |   exe "normal! g`\""
@@ -172,7 +226,6 @@ colorscheme vim-monokai-tasty
 " |- [ Use persistent history ]
 " |-··> Create tmp vim-undo-folder (if it does not exists)
 if !isdirectory("/tmp/.vim-undo-dir")
-
     " rwx permission only to owner
     call mkdir("/tmp/.vim-undo-dir", "", 0700)
 endif
@@ -193,13 +246,6 @@ set fillchars+=vert:\|
 " (complete only the common part, list the options that match)
 set wildmode=list:longest
 
-" |- Tab navigation mappings
-map tt :tabnew 
-map <M-Right> :tabn<CR>
-imap <M-Right> <ESC>:tabn<CR>
-map <M-Left> :tabp<CR>
-imap <M-Left> <ESC>:tabp<CR>
-
 " |- When scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
 
@@ -210,32 +256,7 @@ nnoremap <space><space> :noh<CR>
 " |- Clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
 
-
-" |- Fzf
-
-" |-··> File finder mapping
-nmap ,e :Files<CR>
-" |-··> Tags (symbols) in current file finder mapping
-nmap ,g :BTag<CR>
-" |-··> The same, but with the word under the cursor pre filled
-nmap ,wg :execute ":BTag " . expand('<cword>')<CR>
-" |-··> Tags (symbols) in all files finder mapping
-nmap ,G :Tags<CR>
-" |-··> The same, but with the word under the cursor pre filled
-nmap ,wG :execute ":Tags " . expand('<cword>')<CR>
-" |-··> General code finder in current file mapping
-nmap ,f :BLines<CR>
-" |-··> The same, but with the word under the cursor pre filled
-nmap ,wf :execute ":BLines " . expand('<cword>')<CR>
-" |-··> General code finder in all files mapping
-nmap ,F :Lines<CR>
-" |-··> The same, but with the word under the cursor pre filled
-nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
-" |-··> Commands finder mapping
-nmap ,c :Commands<CR>
-
 " |- NerdCommenter
-
 " |-··> Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " |-··> Use compact syntax for prettified multi-line comments
@@ -250,7 +271,6 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 " |- Neomake
-
 " |-··> Run linter on write
 autocmd! BufWritePost * Neomake
 " |-··> Check code as python3 by default
@@ -265,10 +285,10 @@ let g:neomake_virtualtext_current_error = 0
 " |-··> Map options navigation
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
+
 " |-··> Complete with words from any opened file
 let g:context_filetype#same_filetypes = {}
 let g:context_filetype#same_filetypes._ = '_'
@@ -287,7 +307,6 @@ let g:jedi#usages_command = ',o'
 let g:jedi#goto_assignments_command = ',a'
 "       |-··> Go to definition in new tab
 nmap ,D :tab split<CR>:call jedi#goto()<CR>
-
 
 " |- NerdTree
 " |-··> Toggle NerdTree
