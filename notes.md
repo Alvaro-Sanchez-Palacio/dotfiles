@@ -137,6 +137,7 @@ _See : https://devcenter.heroku.com/articles/audit-trail_
 # - Pipeines :
 
 ## |- Create :
+
 ```
 USAGE
   $ heroku pipelines:create [NAME]
@@ -197,6 +198,17 @@ Ex:
 
 # Format
 - JSON : `:%!python -m json.tool`
+
+# Scroll
+
+## Sycn scroll between tabs:
+In each window that should scroll simultaneously, enter the command:
+`:set scrollbind`
+
+# Diff
+## Compare active windows:
+Execute `:windo diffthis` to compare all active windows
+Execute `:diffoff` or `:diffoff!` to close diff
 
 ```
   __ _       _      _   
