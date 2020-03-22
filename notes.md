@@ -29,7 +29,12 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 ```
 
 ## Github :
-git config --global http.proxy http://<user>:<password>@<proxy>:<port>
+`git config --global http.proxy http://<user>:<password>@<proxy>:<port>`
+
+## Pipenv :
+Prior to starting the virtual environment (pipenv shell), configure proxy:
+export http_proxy="http://<user>:<password>@<proxy>:<port>"
+export https_proxy="http://<user>:<password>@<proxy>:<port>"
 
 ```
                         _                       _ _____ 
