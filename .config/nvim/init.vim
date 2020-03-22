@@ -344,3 +344,30 @@ set cursorline
 hi clear CursorLine
 " |-··> Highlight current line number
 hi CursorLineNR cterm=bold
+
+" |- Startify
+" |-··> Sessions folder
+let g:startify_session_dir = '~/.config/nvim/sessions'
+" |-··> List display on welcome screen
+let g:startify_lists = [
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ ]
+
+" |-··> Sessions persistence
+let g:startify_session_persistence = 1
+
+" |-··> Starting header
+let g:fidlet_psa = [
+    \ '  ____  ____    _     ',
+    \ ' |  _ \/ ___|  / \    ',
+    \ ' | |_) \___ \ / _ \   ',
+    \ ' |  __/ ___) / ___ \  ',
+    \ ' |_|   |____/_/   \_\ ',
+    \ ]
+
+let g:startify_custom_header = 
+            \ startify#pad(g:fidlet_psa)
