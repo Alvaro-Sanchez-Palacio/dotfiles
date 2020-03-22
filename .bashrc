@@ -103,9 +103,10 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias more=less
-alias l="ls --group-directories-first"
-alias la="ls -a --group-directories-first"
-alias ll="ls -la --group-directories-first"
+alias l='ls --color=auto --group-directories-first'
+alias ll='ls -l --color=auto --group-directories-first'
+alias la='ls -la --color=auto --group-directories-first'
+alias heroku='/usr/local/bin/heroku'
 
 xhost +local:root > /dev/null 2>&1
 
@@ -150,5 +151,3 @@ ex ()
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# set -o vi

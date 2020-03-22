@@ -10,6 +10,26 @@
 pacman -Qs <package>
 _Replace <package> by the name of the package, ex : `pacman -Qs snapd`_
 
+# Proxy :
+1. Edit _environment_ file : `sudo nvim /etc/environment`
+1. Add proxy values :
+```bash
+http_proxy=http://<user>:<password>@<proxy>:<port>/
+https_proxy=http://<user>:<password>@<proxy>:<port>/
+```
+1. Edit _profile.d/http_proxy_
+`$ sudo nvim /etc/profile.d/http_proxy.sh`
+
+```
+export http_proxy="http://<user>:<password>@<proxy>:<port>"
+export https_proxy=$http_proxy
+export ftp_proxy=$http_proxy
+export rsync_proxy=$http_proxy
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+```
+
+## Github :
+git config --global http.proxy http://<user>:<password>@<proxy>:<port>
 
 ```
                         _                       _ _____ 
