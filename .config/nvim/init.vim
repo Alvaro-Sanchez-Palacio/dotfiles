@@ -165,6 +165,10 @@ nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 " |-··> Commands finder mapping
 nmap ,c :Commands<CR>
 
+" |- Visual lines indentation
+vmap < <gv
+vmap > >gv
+
 " ---------------------------------- "
 "   ____             __ _            "
 "  / ___|___  _ __  / _(_) __ _ ___  "
@@ -313,6 +317,8 @@ nmap ,D :tab split<CR>:call jedi#goto()<CR>
 nmap <M-º> :NERDTreeToggle<CR>
 " |-··> Ignore specific filetypes
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+" |-··> How hidden files
+let NERDTreeShowHidden=1
 " |-··> Enable folder icons
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
@@ -332,3 +338,9 @@ function! NERDTreeRefresh()
 endfunction
 autocmd BufEnter * call NERDTreeRefresh()
 
+" |- Activate line highlights
+set cursorline
+" |-··> Disable current line highlight 
+hi clear CursorLine
+" |-··> Highlight current line number
+hi CursorLineNR cterm=bold
