@@ -33,8 +33,11 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
 ## Pipenv :
 Prior to starting the virtual environment (pipenv shell), configure proxy:
-export http_proxy="http://<user>:<password>@<proxy>:<port>"
-export https_proxy="http://<user>:<password>@<proxy>:<port>"
+`export http_proxy="http://<user>:<password>@<proxy>:<port>"`
+`export https_proxy="http://<user>:<password>@<proxy>:<port>"`
+
+Install neovim & pylint into virtual environment:
+`pipenv install pylint neovim -d`
 
 ```
                         _                       _ _____ 
@@ -159,7 +162,7 @@ Ex:
 _See : https://devcenter.heroku.com/articles/audit-trail_
 
 
-# - Pipeines :
+# - Pipelines :
 
 ## |- Create :
 
@@ -226,9 +229,11 @@ Ex:
 
 # Scroll
 
-## Sycn scroll between tabs:
+## Sync scroll between tabs:
 In each window that should scroll simultaneously, enter the command:
 `:set scrollbind`
+To apply the sync to all open windows:
+`:windo set scrollbind`
 
 # Diff
 ## Compare active windows:

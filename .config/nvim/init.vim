@@ -237,6 +237,7 @@ endif
 set undodir=/tmp/.vim-undo-dir
 " |-··> Configure tmp directory
 set undofile
+
 " |- Tabs and spaces handling
 set expandtab
 set tabstop=4
