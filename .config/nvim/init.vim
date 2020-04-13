@@ -7,59 +7,51 @@
 "                |___/              "
 " --------------------------------- "
 
-" |- vim-plug
-" |-··> Start plugins declarations
+" Vim Plug: Start plugins declarations
 call plug#begin() 
 
-    " |- Deoplete
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-    " |- Jedi-VIM :
-    " Go-to-definition and similar features (autocompletion is disabled)
-    Plug 'davidhalter/jedi-vim'
-
-    " |- Ctrl-P " TODO : Learn
-    " Plug 'ctrlpvim/ctrlp.vim'
-
-    " |- Surround
+    " Surround: Surround text with a specified character -> TODO : Learn
     Plug 'tpope/vim-surround'
 
-    " |- EasyMotion " TODO : Add ?
-
-    " |- NerdTree
+    " NerdTree: File browsing in left window
     Plug 'scrooloose/nerdTree'
 
-    " |- NerdCommenter
+    " NerdCommenter: Automatic comments.
     Plug 'scrooloose/nerdcommenter'
 
-    " |- Lightline
+    " Lightline: Light status bar.
     Plug 'itchyny/lightline.vim'
 
-    " |- Color scheme
-    Plug 'patstockwell/vim-monokai-tasty'
+    " Vim Code Dark: VSCode theme.
+    Plug 'tomasiser/vim-code-dark'
 
-    " |- Git integration : TODO : Add ?
+    " Vim Fugitive: Git integration -> TODO : Configure
     Plug 'tpope/vim-fugitive'
 
-    " Git/mercurial/others diff icons on the side of the file lines
+    " Vim Signify: Git/mercurial/others diff icons on the side of the file lines
     Plug 'mhinz/vim-signify'
 
-    " |- Code and files fuzzy finder
+    " Fzf: Code and files fuzzy finder
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 
-    " |- Linters
+    " Neomake: Linters
     Plug 'neomake/neomake'
 
-    " |- Glyphicons (NerdTree included)
-    " |-··> Set as final vim-plug
-    Plug 'ryanoasis/vim-devicons'
-
-    " |- Startify
+    " Startify: Welcome page for VIM
     Plug 'mhinz/vim-startify'
 
-    " |- Prettier : TODO : Add ?
-    " Plug 'mhinz/vim-startify'
+    " ViFM: Vi File Manager -> TODO : Learn !
+    Plug 'vifm/vifm.vim'
+
+    " Prettier: TODO : Add ?
+
+    " Vim Polyglot: Syntax highlight.
+    Plug 'sheerun/vim-polyglot'
+
+    " Vim Devicons: Glyphicons (NerdTree included)
+    " |-··> Set as final vim-plug
+    Plug 'ryanoasis/vim-devicons'
 
 " |-··> End plugins declaration
 call plug#end()
@@ -143,29 +135,21 @@ map º <Esc>
 " |- Terminal (:ter) escape ter mode
 tnoremap <Esc> <C-\><C-n>
 
-" |- Fzf
-" |-··> File finder mapping
+" Fzf: Fuzzy finder.
+" |- File finder mapping
 nmap ,e :Files<CR>
-" |-··> Tags (symbols) in current file finder mapping
-nmap ,g :BTag<CR>
-" |-··> The same, but with the word under the cursor pre filled
-nmap ,wg :execute ":BTag " . expand('<cword>')<CR>
-" |-··> Tags (symbols) in all files finder mapping
-nmap ,G :Tags<CR>
-" |-··> The same, but with the word under the cursor pre filled
-nmap ,wG :execute ":Tags " . expand('<cword>')<CR>
-" |-··> General code finder in current file mapping
+" |- General code finder in current file mapping
 nmap ,f :BLines<CR>
-" |-··> The same, but with the word under the cursor pre filled
+" |- The same, but with the word under the cursor pre filled
 nmap ,wf :execute ":BLines " . expand('<cword>')<CR>
-" |-··> General code finder in all files mapping
+" |- General code finder in all files mapping
 nmap ,F :Lines<CR>
-" |-··> The same, but with the word under the cursor pre filled
+" |- The same, but with the word under the cursor pre filled
 nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
-" |-··> Commands finder mapping
+" |- Commands finder mapping
 nmap ,c :Commands<CR>
 
-" |- Visual lines indentation
+" Visual lines indentation:
 vmap < <gv
 vmap > >gv
 
@@ -178,46 +162,47 @@ vmap > >gv
 "                         |___/      "
 " ---------------------------------- "
 
-" |- UTF-8
+" UTF-8:
 set encoding=UTF-8
 
-" |- Natural splits
+" Natural splits:
 set splitbelow
 set splitright
 
-" |- Use system clipboard as default register
+" Use system clipboard as default register:
 set clipboard=unnamedplus
 
-" |- Enable mouse support
+" Enable mouse support:
 set mouse=a
 
-" |- Syntax
+" Syntax:
 syntax on
 
-" |- Show numbers
+" Show numbers:
 set number
 
-" |- No wrap
+" No wrap:
 set nowrap
 
-" |- Lightline
-set laststatus=2 "Always show status line
-set noshowmode " Hide --INSERT-- from status line
-
-" |-··> [ Add components ]
-"   	|-··> colorscheme : wombat
-"   	|-··> colorscheme : monokai_tasty
-"   	|--··> git integration : ? @TODO : `:help 'statusline'`
+" Lightline: Status bar
+" |- Always show status line:
+set laststatus=2 
+" |- Hide --INSERT-- from status line:
+set noshowmode 
+" |- Add components:
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
-      \ }
-      \ }
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ], 
+    \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
+    \ },
+    \ 'component_function':{
+    \   'gitbranch': 'FugitiveHead'
+    \ }
+\ }
 
-" |- Vim-Monokai-Tasty
-let g:vim_monokai_tasty_italic = 0
-colorscheme vim-monokai-tasty
+" Colorscheme (see vim-code-dark plugin)
+colorscheme codedark
 
 " |- *last-position-jump*
 " This autocommand jumps to the last known position in a file
@@ -245,7 +230,7 @@ set softtabstop=4
 set shiftwidth=4
 
 " |- Change separator character on vertical split
-set fillchars+=vert:\|
+set fillchars+=vert:\│
 
 " |- Autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
@@ -286,51 +271,30 @@ let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
 " |-··> Disable error messages inside the buffer, next to the problematic line
 let g:neomake_virtualtext_current_error = 0
 
-" |- Deoplete :
-" |-··> Map options navigation
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-
-" |-··> Complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
-set completeopt+=noinsert
-
-" |- Jedi-VIM :
-" |-··> Disable autocompletion (using deoplete instead)
-let g:jedi#completions_enabled = 0
-
-" |-··> All these mappings work only for python code:
-"       |-··> Go to definition
-let g:jedi#goto_command = ',d'
-"       |-··> Find ocurrences
-let g:jedi#usages_command = ',o'
-"       |-··> Find assignments
-let g:jedi#goto_assignments_command = ',a'
-"       |-··> Go to definition in new tab
-nmap ,D :tab split<CR>:call jedi#goto()<CR>
-
 " |- NerdTree
 " |-··> Toggle NerdTree
 nmap <M-º> :NERDTreeToggle<CR>
+
 " |-··> Ignore specific filetypes
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+
 " |-··> How hidden files
 let NERDTreeShowHidden=1
+
 " |-··> Enable folder icons
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
+
 " |-··> Fix directory colors
 highlight! link NERDTreeFlags NERDTreeDir
+
 " |-··> Remove expandable arrow
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeNodeDelimiter = "\x07"
+
 " |-··> Autorefresh on tree focus
 function! NERDTreeRefresh()
     if &filetype == "nerdtree"
@@ -341,15 +305,17 @@ autocmd BufEnter * call NERDTreeRefresh()
 
 " |- Activate line highlights
 set cursorline
+
 " |-··> Disable current line highlight 
 hi clear CursorLine
+
 " |-··> Highlight current line number
 hi CursorLineNR cterm=bold
 
-" |- Startify
-" |-··> Sessions folder
+" Startify:
+" |-··> Sessions folder:
 let g:startify_session_dir = '~/.config/nvim/sessions'
-" |-··> List display on welcome screen
+" |-··> List display on welcome screen:
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -358,10 +324,10 @@ let g:startify_lists = [
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
 
-" |-··> Sessions persistence
+" |-··> Sessions persistence:
 let g:startify_session_persistence = 1
 
-" |-··> Starting header
+" |-··> Starting header:
 let g:fidlet_psa = [
     \ '  ____  ____    _     ',
     \ ' |  _ \/ ___|  / \    ',
@@ -369,6 +335,5 @@ let g:fidlet_psa = [
     \ ' |  __/ ___) / ___ \  ',
     \ ' |_|   |____/_/   \_\ ',
     \ ]
-
 let g:startify_custom_header = 
             \ startify#pad(g:fidlet_psa)
