@@ -108,6 +108,9 @@ alias ll='ls -l --color=auto --group-directories-first'
 alias la='ls -a --color=auto --group-directories-first'
 alias lla='ls -la --color=auto --group-directories-first'
 alias heroku='/usr/local/bin/heroku'
+alias v='vim'
+alias n='nvim'
+alias nc='nvim ~/.config/nvim/init.vim'
 
 xhost +local:root > /dev/null 2>&1
 
