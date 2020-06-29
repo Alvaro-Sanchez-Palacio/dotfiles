@@ -29,7 +29,19 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 ```
 
 ## Github :
+Two options :
+1. Modify via code :
 `git config --global http.proxy http://<user>:<password>@<proxy>:<port>`
+2. Edit ~/.gitconfig:
+```
+[user]
+	username = alvarosanchezpalacio
+	name = Alvaro Sanchez Palacio
+	mail = alvaro.sanchez@mpsa.com
+	email = alvaro.sanchez@mpsa.com
+[http]
+	proxy = http://<user>:<password>@<proxy>:<port>
+```
 
 ## Pipenv :
 Prior to starting the virtual environment (pipenv shell), configure proxy:
@@ -47,6 +59,23 @@ Install neovim & pylint into virtual environment:
 |_| |_| |_|\__,_|_| |_|/ |\__,_|_|  \___/      |_|____/ 
                      |__/                               
 ```
+
+# Install linux headers (for virtualbox) :
+1. Find your kernel version :
+`uname -r`
+1. Install linux headers :
+Depending on the version of Kernel :
+If the version is 5.4
+`sudo pacman -S linux54-headers`
+If the version is 4.20
+`sudo pacman -S linux420-headers`
+1. Install make, pearl & gcc (from package manager, for example)
+1. Click on "Devices > Insert Guest Adittions CD image ..."
+_This should add the VBox media device_
+1. Run autorun.sh from VBoxGuest
+`$ sudo gpasswd -a $USER vboxsf`
+1. Change ownership of /media
+`sudo chown root:vboxsf /media`
 
 # Install audio :
 `sudo pamac install pulseaudio-alsa`
