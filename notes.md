@@ -27,6 +27,11 @@ export ftp_proxy=$http_proxy
 export rsync_proxy=$http_proxy
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 ```
+1. Add Snapd proxy variables :
+```
+$ sudo snap set system proxy.http="http://<proxy_addr>:<proxy_port>"
+$ sudo snap set system proxy.https="http://<proxy_addr>:<proxy_port>"
+```
 
 ## Github :
 Two options :
