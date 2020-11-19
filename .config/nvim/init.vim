@@ -151,7 +151,7 @@ nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 nmap ,c :Commands<CR>
 " |-··> Buffers list
 nmap ,b :Buffers<CR>
- import BranchHandler
+
 " |- Visual lines indentation
 vmap < <gv
 vmap > >gv
@@ -169,7 +169,7 @@ vmap > >gv
 set encoding=UTF-8
 
 " |- Filetypes
-set filetype
+" set filetype
 
 " |- Natural splits
 set splitbelow
@@ -259,6 +259,8 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+" Autocompletion for packages
+set iskeyword+=.
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
