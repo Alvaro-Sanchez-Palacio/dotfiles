@@ -223,3 +223,13 @@ Execute `:diffoff` or `:diffoff!` to close diff
 
 # Create a Figlet :
 `figlet <test>`
+
+# SSH - Github
+- Steps to generate a new SSH key:
+_https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent_
+
+- Steps to add new ssh key to Github:
+_https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account_
+
+- Hostname files generation ( in case it does not exist already! )
+ssh-keyscan github.com >> ~/.ssh/known_hosts
